@@ -3,6 +3,18 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "compilerOptions": {
-    "deleteOutDir": true
+    "deleteOutDir": true,
+    "assets": [
+      {
+        "include": "public/",
+        "watchAssets": true
+      },
+      {
+        "include": "views/**/*.hbs",
+        "watchAssets": true
+      }
+    ],
+    "webpack": true,
+    "tsConfigPath": "tsconfig.json"
   }
 }
