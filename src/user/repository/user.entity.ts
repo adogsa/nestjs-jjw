@@ -33,8 +33,8 @@ export class User {
   name: string;
 
   @Property({ type: String, comment: 'columnName comment2', default: 0 })
-  accessToken: string;
+  hashedAccessToken: string;
 
   @Property({ type: String, comment: 'columnName comment2', default: 0 })
-  refreshToken: string;
+  hashedRefreshToken: string;
 }

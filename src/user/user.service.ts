@@ -15,6 +15,7 @@ import { JwtSet } from '../auth/model/jwt-set';
 import { ErrUnauthorized } from '../auth/auth.error';
 import configuration from '../config/configuration';
 import { ConfigType } from '@nestjs/config';
+import * as sha256 from 'crypto-js/sha256';
 
 @Injectable()
 export class UserService {
@@ -41,8 +42,8 @@ export class UserService {
       // await this.userRepository.persistAndFlush(param);
 
       const token = await this.tokenSvc.createToken({ email: param.email });
-      user.accessToken = token.accessToken;
-      user.refreshToken = token.refreshToken;
+      user.hashedAccessToken = sha256(token.accessToken).toString();
+      user.hashedRefreshToken = sha256(token.refreshToken).toString();
       await this.userRepository.upsert(user);
       return token;
     } catch (e) {
@@ -54,8 +55,8 @@ export class UserService {
   async login(param: LoginParam, user: User): Promise<JwtSet> {
     try {
       const token = await this.tokenSvc.createToken({ email: param.email });
-      user.accessToken = token.accessToken;
-      user.refreshToken = token.refreshToken;
+      user.hashedAccessToken = sha256(token.accessToken).toString();
+      user.hashedRefreshToken = sha256(token.refreshToken).toString();
       await this.userRepository.upsert(user);
       return token;
     } catch (e) {
@@ -84,7 +85,10 @@ export class UserService {
     user: User,
     refreshToken: string,
   ): Promise<JwtSet> {
-    if (!user.refreshToken || user.refreshToken != refreshToken)
+    if (
+      !user.hashedRefreshToken ||
+      user.hashedRefreshToken != sha256(refreshToken).toString()
+    )
       throw new ErrUnauthorized(`${email}: not valid refreshToken`);
 
     const accessExpire = this.config.auth.accessTokenExpirationTime;
@@ -95,8 +99,8 @@ export class UserService {
       refreshExpire,
     );
 
-    user.accessToken = newJwtSet.accessToken;
-    user.refreshToken = newJwtSet.refreshToken;
+    user.hashedAccessToken = sha256(newJwtSet.accessToken).toString();
+    user.hashedRefreshToken = sha256(newJwtSet.refreshToken).toString();
     await this.update(user);
     return newJwtSet;
   }
