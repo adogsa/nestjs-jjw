@@ -17,4 +17,8 @@ export default registerAs('global', () => ({
     accessTokenExpirationTime: process.env.AUTH_ACCESS_TOKEN_EXP_TIME ?? '1d',
     refreshTokenExpirationTime: process.env.AUTH_REFRESH_TOKEN_EXP_TIME ?? '2d',
   },
+  http: {
+    timeout: process.env.HTTP_TIMEOUT ?? '',
+    maxRedirects: process.env.HTTP_REDIRECTION ?? '',
+  },
 }));

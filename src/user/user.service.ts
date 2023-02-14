@@ -33,13 +33,8 @@ export class UserService {
       throw new ErrUserAlreadyExists();
     }
 
-    // TODO 전화번호 인증??
-
-    // throw new ErrUserNotCreated();
-
     try {
       const user = await this.userRepository.create(param);
-      // await this.userRepository.persistAndFlush(param);
 
       const token = await this.tokenSvc.createToken({ email: param.email });
       user.hashedAccessToken = sha256(token.accessToken).toString();
@@ -60,7 +55,7 @@ export class UserService {
       await this.userRepository.upsert(user);
       return token;
     } catch (e) {
-      throw new ErrUserNotUpdate();
+      throw new ErrUserNotUpdate(e.message);
     }
   }
 
