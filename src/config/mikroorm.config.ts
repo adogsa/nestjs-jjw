@@ -1,7 +1,7 @@
 import configuration from './configuration';
 import type { ConfigType } from '@nestjs/config';
 import { MikroOrmModuleAsyncOptions } from '@mikro-orm/nestjs';
-import { MyTest } from '../my-test/repository/my-test.entity';
+import { User } from '../user/repository/user.entity';
 
 export const DB1_NANE = 'DB1';
 export const mikroOrmAsyncDB1Options: MikroOrmModuleAsyncOptions = {
@@ -16,11 +16,9 @@ export const mikroOrmAsyncDB1Options: MikroOrmModuleAsyncOptions = {
       user: config.db.rdb.username,
       password: config.db.rdb.password,
       dbName: config.db.rdb.database,
-      synchronize: config.db.rdb.synchronize,
-      logging: config.db.rdb.logging,
       registerRequestContext: false,
       allowGlobalContext: true,
-      entities: [MyTest],
+      entities: [User],
       debug: true,
       extra: { max: 128 },
     };

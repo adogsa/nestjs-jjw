@@ -9,11 +9,12 @@ export default registerAs('global', () => ({
       username: process.env.RDB_USERNAME,
       password: process.env.RDB_PASSWORD,
       database: process.env.RDB_DBNAME,
-      synchronize: process.env.DB_SYNCHRONIZE === 'true',
-      entityPrefix: process.env.DB_ENTITY_PREFIX ?? '',
-      useEntityRandomPrefix:
-        process.env.DB_USE_TABLE_RANDOM_PREFIX === 'true' || false,
-      logging: process.env.DB_TYPEORM_LOGGING === 'true' || false,
     },
+  },
+  auth: {
+    accessTokenSecret: process.env.AUTH_ACCESS_TOKEN_SECRET ?? '',
+    refreshTokenSecret: process.env.AUTH_REFRESH_TOKEN_SECRET ?? '',
+    accessTokenExpirationTime: process.env.AUTH_ACCESS_TOKEN_EXP_TIME ?? '1d',
+    refreshTokenExpirationTime: process.env.AUTH_REFRESH_TOKEN_EXP_TIME ?? '2d',
   },
 }));
