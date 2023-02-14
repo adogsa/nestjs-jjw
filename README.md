@@ -8,15 +8,15 @@
 $ DB 스키마(접속정보는 src/env/.env.sample에 있습니다.)
 create table user
 (
-email         tinytext     null,
-id            bigint auto_increment
-primary key,
-password      varchar(100) null,
-phone         varchar(100) null,
-name          varchar(100) not null,
-device_id     varchar(100) null,
-access_token  text         null,
-refresh_token text         null
+    email                tinytext     null,
+    id                   bigint auto_increment
+        primary key,
+    password             varchar(100) null,
+    phone                varchar(100) null,
+    name                 varchar(100) not null,
+    device_id            varchar(100) null,
+    hashed_access_token  text         null,
+    hashed_refresh_token text         null
 );
 ```
 
