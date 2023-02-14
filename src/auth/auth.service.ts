@@ -4,6 +4,7 @@ import { User } from '../user/repository/user.entity';
 import { ErrUnauthorized } from './auth.error';
 import { RequestPayload } from './model/jwt-payload.interface';
 import { JwtSet } from './model/jwt-set';
+import * as sha256 from 'crypto-js/sha256';
 
 @Injectable()
 export class AuthService {
@@ -11,7 +12,7 @@ export class AuthService {
 
   async validateUser(email: string, password: string): Promise<User> {
     const user = await this.userSvc.findOneByEmail(email);
-    if (user.password == password) {
+    if (user.password === sha256(password).toString()) {
       return user;
     } else {
       throw new ErrUnauthorized();

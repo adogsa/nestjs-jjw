@@ -25,6 +25,30 @@ export class ErrUserNotFound extends MyException {
   }
 }
 
+export class ErrSmsCheck extends MyException {
+  readonly name = 'ErrSmsCheck';
+
+  constructor(debugMsg?: any) {
+    super({
+      message: `sms 인증을 완료 하지 않았습니다.`,
+      debugMsg: debugMsg,
+      status: HttpStatus.UNAUTHORIZED,
+    });
+  }
+}
+
+export class ErrNotValidPassword extends MyException {
+  readonly name = 'ErrNotValidPassword';
+
+  constructor(debugMsg?: any) {
+    super({
+      message: `password가 틀렸습니다.`,
+      debugMsg: debugMsg,
+      status: HttpStatus.UNAUTHORIZED,
+    });
+  }
+}
+
 export class ErrUnauthorized extends MyException {
   readonly name = 'ErrUnauthorized';
 

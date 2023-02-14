@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import configuration from './config/configuration';
 import { ConfigModule } from '@nestjs/config';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
@@ -20,7 +18,5 @@ import { AuthModule } from './auth/auth.module';
     AuthModule,
     MikroOrmModule.forRootAsync(mikroOrmAsyncDB1Options),
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

@@ -11,7 +11,7 @@ import {
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserService } from '../user.service';
 import { UserResult } from './result/user.result';
-import { LoginParam, UserParam } from './param/loginParam';
+import { LoginParam, PasswordParam, UserParam } from './param/loginParam';
 import { JwtValidatedRequest } from '../../auth/model/jwt-validated-request.interface';
 import { LocalAuthGuard } from '../../auth/guard/local.strategy';
 import { JwtSet } from '../../auth/model/jwt-set';
@@ -65,5 +65,18 @@ export class UserController {
   @Get('me')
   getProfile(@Req() req: JwtValidatedRequest): UserResult {
     return UserResult.from(req.user.jwtPayload.user);
+  }
+
+  @Post('changePassword')
+  @HttpCode(200)
+  @ApiOperation({
+    summary: '비번 바꾸기',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: '비번 바꾸기 성공',
+  })
+  async changePassword(@Body() param: PasswordParam): Promise<void> {
+    return await this.userService.changePassword(param);
   }
 }

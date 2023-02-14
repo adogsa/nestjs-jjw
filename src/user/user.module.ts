@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { UserService } from './user.service';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { UserController } from './rest/user.controller';
@@ -8,7 +8,10 @@ import { TokenService } from '../auth/token/token.service';
 import { JwtService } from '@nestjs/jwt';
 
 @Module({
-  imports: [MikroOrmModule.forFeature([User], DB1_NANE)],
+  imports: [
+    MikroOrmModule.forFeature([User], DB1_NANE),
+    CacheModule.register(),
+  ],
   providers: [UserService, TokenService, JwtService],
   exports: [UserService],
   controllers: [UserController],
