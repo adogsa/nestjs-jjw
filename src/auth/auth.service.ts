@@ -26,14 +26,4 @@ export class AuthService {
       payload.refreshToken,
     );
   }
-
-  // public isExpiredToken(oldJwtPayload: RequestPayload): boolean {
-  //   if (!oldJwtPayload.exp) {
-  //     throw new ErrValidToken();
-  //   }
-  //
-  //   //토큰 교체 중 일수도 있어서 여유 시간 추가
-  //   const AddTimeForTokenReplaceTime = 5000;
-  //   return oldJwtPayload.exp * 1000 + AddTimeForTokenReplaceTime < Date.now();
-  // }
 }
