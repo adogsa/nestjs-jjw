@@ -6,6 +6,7 @@
 
 ```bash
 $ DB 스키마(접속정보는 src/env/.env.sample에 있습니다.)
+common이라는 디비를 만들고 그 아래에 user테이블 생성하였습니다.
 create table user
 (
     email                tinytext     null,
@@ -48,7 +49,7 @@ $ npm run start:dev
 1. 비번 저장은 sha256으로 저장하게 하였습니다.
 2. 인증은 email/password로 로그인하고나서 일반 api는 jwt토큰을 사용하도록 하였습니다.
 3. refresh token api도 구현하였습니다.
-4. sms 인증 api 2개는 sms 보내고 확인하는 기능입니다.
+4. sms 인증 api 2개는 sms 보내고 확인하는 기능입니다.(이 api는 외부통신을 하지 않아도 된다고 해서 단지 구현만 해놓은 상태입니다.)
 5. 비밀번호 변경 api도 sms인증 api(2개)로 진행후 cashManager에서 확인하고 변경가능하도록 구현하였습니다.
 6. env 폴더 밑에 관련 설정 값들이 있고 과제라서 같이 커밋하였습니다.
 ```
@@ -59,4 +60,6 @@ $ npm run start:dev
 1. sms 인증 캐시때문에 회원가입과 비번 변경이 막힐텐데 인증했다고 해주는 테스트 api를 만들었습니다. 이 api 호출하면 해당 폰은 sms인증했다고 넘겨줍니다.
 2. sms 인증은 api 구현만 해놓은 상태이고 인증 완료하면 cashManager에 값을 기록한다는 가정하에 회원가입 api가 호출되면 cashmanager에서 확인하고 진행됩니다.
 (sms 인증 api가 2개가 있어서 클라가 호출해준다는 가정하에 있습니다.)
+3. 테스트를 위해서 sms 인증은 /auth/testSms라는 api를 이용해서 인증됬다라고 처리하고 회원가입이나 비밀 번호 변경 api를 호출할 수 있도록 해놓았습니다.
+4. access token 만료시간은 1일로 하였습니다. refresh token 테스트를 하려면 .env.sample에서 조절해주시면 됩니다.(ex: 20s)
 ```
