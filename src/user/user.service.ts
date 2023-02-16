@@ -3,7 +3,7 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import { UserRepository } from './repository/user.repository';
 import { DB1_NANE } from '../config/mikroorm.config';
 import { User } from './repository/user.entity';
-import { LoginParam, PasswordParam, UserParam } from './rest/param/loginParam';
+import { LoginParam, PasswordParam, UserParam } from './rest/param/userParam';
 import {
   ErrUserAlreadyExists,
   ErrUserNotCreated,
@@ -74,7 +74,6 @@ export class UserService {
 
   async changePassword(param: PasswordParam): Promise<void> {
     const phoneCheck = await this.cacheManager.get(`${param.phone}:checkSms`);
-    console.log('phoneCheck', phoneCheck);
     if (phoneCheck !== 'true') throw new ErrSmsCheck();
 
     const user = await this.findOneByEmail(param.email);

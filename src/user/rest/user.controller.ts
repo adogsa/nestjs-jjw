@@ -11,12 +11,11 @@ import {
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserService } from '../user.service';
 import { UserResult } from './result/user.result';
-import { LoginParam, PasswordParam, UserParam } from './param/loginParam';
+import { LoginParam, PasswordParam, UserParam } from './param/userParam';
 import { JwtValidatedRequest } from '../../auth/model/jwt-validated-request.interface';
 import { LocalAuthGuard } from '../../auth/guard/local.strategy';
 import { JwtSet } from '../../auth/model/jwt-set';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.strategy';
-import { User } from '../repository/user.entity';
 
 @ApiTags('User')
 @Controller('user')
